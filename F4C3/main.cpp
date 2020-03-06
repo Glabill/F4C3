@@ -5,11 +5,15 @@
 //  Created by Gaston Gougeon on 29/02/2020.
 //  Copyright © 2020 com.example. All rights reserved.
 //
-
+#include <opencv2/core.hpp>
+#include <librealsense2/rs.hpp>
 #include <iostream>
+#include "Core.hpp"
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
+    
+    Core core;
+    std::cout << "Hello" << std::endl;
+    core.run(); // Starts the app
+    
 }
