@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		DF389DF6240B25800068B775 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF389DF5240B25800068B775 /* main.cpp */; };
+		DF76818D240DBEE9008F33C6 /* libopencv_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF76818C240DBEE8008F33C6 /* libopencv_core.a */; };
+		DF768191240DC686008F33C6 /* librealsense2.2.33.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DF768190240DC685008F33C6 /* librealsense2.2.33.1.dylib */; };
+		DF768194240DC777008F33C6 /* Core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF768192240DC777008F33C6 /* Core.cpp */; };
+		DF768197240DD30B008F33C6 /* StreamManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF768195240DD30B008F33C6 /* StreamManager.cpp */; };
+		DF768199240DD6EF008F33C6 /* libopencv_highgui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF768198240DD6A6008F33C6 /* libopencv_highgui.a */; };
+		DFF1B77D240ECC08006D8241 /* libopencv_imgproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF1B77C240ECC07006D8241 /* libopencv_imgproc.a */; };
+		DFF1B780240ECC20006D8241 /* ImageProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFF1B77E240ECC20006D8241 /* ImageProcessor.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +32,18 @@
 /* Begin PBXFileReference section */
 		DF389DF2240B25800068B775 /* F4C3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = F4C3; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF389DF5240B25800068B775 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		DF76818A240DBD20008F33C6 /* libopencv_core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_core.a; path = ../../../../usr/local/lib/libopencv_core.a; sourceTree = "<group>"; };
+		DF76818C240DBEE8008F33C6 /* libopencv_core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_core.a; path = ../../../../usr/local/Cellar/opencv/4.2.0_1/lib/libopencv_core.a; sourceTree = "<group>"; };
+		DF76818E240DBF0A008F33C6 /* F4C3.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = F4C3.entitlements; sourceTree = "<group>"; };
+		DF768190240DC685008F33C6 /* librealsense2.2.33.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = librealsense2.2.33.1.dylib; path = ../../../../usr/local/lib/librealsense2.2.33.1.dylib; sourceTree = "<group>"; };
+		DF768192240DC777008F33C6 /* Core.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Core.cpp; sourceTree = "<group>"; };
+		DF768193240DC777008F33C6 /* Core.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Core.hpp; sourceTree = "<group>"; };
+		DF768195240DD30B008F33C6 /* StreamManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StreamManager.cpp; sourceTree = "<group>"; };
+		DF768196240DD30B008F33C6 /* StreamManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StreamManager.hpp; sourceTree = "<group>"; };
+		DF768198240DD6A6008F33C6 /* libopencv_highgui.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_highgui.a; path = ../../../../usr/local/Cellar/opencv/4.2.0_1/lib/libopencv_highgui.a; sourceTree = "<group>"; };
+		DFF1B77C240ECC07006D8241 /* libopencv_imgproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_imgproc.a; path = ../../../../usr/local/Cellar/opencv/4.2.0_1/lib/libopencv_imgproc.a; sourceTree = "<group>"; };
+		DFF1B77E240ECC20006D8241 /* ImageProcessor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ImageProcessor.cpp; sourceTree = "<group>"; };
+		DFF1B77F240ECC20006D8241 /* ImageProcessor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ImageProcessor.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +51,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFF1B77D240ECC08006D8241 /* libopencv_imgproc.a in Frameworks */,
+				DF768199240DD6EF008F33C6 /* libopencv_highgui.a in Frameworks */,
+				DF768191240DC686008F33C6 /* librealsense2.2.33.1.dylib in Frameworks */,
+				DF76818D240DBEE9008F33C6 /* libopencv_core.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +66,7 @@
 			children = (
 				DF389DF4240B25800068B775 /* F4C3 */,
 				DF389DF3240B25800068B775 /* Products */,
+				DF768185240DBCA2008F33C6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,9 +81,28 @@
 		DF389DF4240B25800068B775 /* F4C3 */ = {
 			isa = PBXGroup;
 			children = (
+				DF76818E240DBF0A008F33C6 /* F4C3.entitlements */,
 				DF389DF5240B25800068B775 /* main.cpp */,
+				DF768192240DC777008F33C6 /* Core.cpp */,
+				DF768193240DC777008F33C6 /* Core.hpp */,
+				DF768195240DD30B008F33C6 /* StreamManager.cpp */,
+				DF768196240DD30B008F33C6 /* StreamManager.hpp */,
+				DFF1B77E240ECC20006D8241 /* ImageProcessor.cpp */,
+				DFF1B77F240ECC20006D8241 /* ImageProcessor.hpp */,
 			);
 			path = F4C3;
+			sourceTree = "<group>";
+		};
+		DF768185240DBCA2008F33C6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DFF1B77C240ECC07006D8241 /* libopencv_imgproc.a */,
+				DF768198240DD6A6008F33C6 /* libopencv_highgui.a */,
+				DF768190240DC685008F33C6 /* librealsense2.2.33.1.dylib */,
+				DF76818A240DBD20008F33C6 /* libopencv_core.a */,
+				DF76818C240DBEE8008F33C6 /* libopencv_core.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,6 +162,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF768197240DD30B008F33C6 /* StreamManager.cpp in Sources */,
+				DF768194240DC777008F33C6 /* Core.cpp in Sources */,
+				DFF1B780240ECC20006D8241 /* ImageProcessor.cpp in Sources */,
 				DF389DF6240B25800068B775 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,7 +175,7 @@
 		DF389DF7240B25800068B775 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -176,11 +222,18 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
 				SDKROOT = macosx;
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					/usr/local/include/opencv4/,
+					/usr/local/include,
+				);
 			};
 			name = Debug;
 		};
@@ -228,19 +281,31 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "";
 				SDKROOT = macosx;
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					/usr/local/include/opencv4/,
+					/usr/local/include,
+				);
 			};
 			name = Release;
 		};
 		DF389DFA240B25800068B775 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = F4C3/F4C3.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DYD5R2843W;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/opencv/4.2.0_1/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -248,9 +313,14 @@
 		DF389DFB240B25800068B775 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = F4C3/F4C3.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DYD5R2843W;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/opencv/4.2.0_1/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
