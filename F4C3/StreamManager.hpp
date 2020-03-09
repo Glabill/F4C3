@@ -12,6 +12,8 @@
 #include <iostream>
 #include <librealsense2/rs.hpp>
 #include <opencv2/highgui.hpp>
+#include <opencv2/objdetect.hpp>
+#include <opencv2/imgproc.hpp>
 
 #endif /* StreamManager_hpp */
 
@@ -22,7 +24,7 @@ public:
     void start(); // Starts the video stream
     void pauseStream(); // Pauses the video stream
     void playStream(); // Plays the video stream
-    void analyze(); // Analyzes the current frame
+    int* analyze(); // Analyzes the current frame
     
 private:
     int capWidth; // Width of the video stream
@@ -34,6 +36,14 @@ private:
     rs2::pipeline pipe; // Realsense pipeline to abstract the device
     rs2::frameset frames; // Realsense frameset to store frames
     
-    bool running; // to check is it's running
+    // Diverse points defining the face's bounding box
+    cv::Point pt1;
+    cv::Point pt2;
+    cv::Point pt1_1;
+    cv::Point pt2_2;
+    
+    bool running; // 2 CHECK IF IT S RUNGHING (°|°)
+    
+    cv::CascadeClassifier faceDetector; // Face detector
     
 };

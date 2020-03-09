@@ -32,6 +32,7 @@
 /* Begin PBXFileReference section */
 		DF389DF2240B25800068B775 /* F4C3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = F4C3; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF389DF5240B25800068B775 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		DF66635E2416C2B000BF94DF /* libopencv_imgcodecs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_imgcodecs.a; path = ../../../../usr/local/Cellar/opencv/4.2.0_1/lib/libopencv_imgcodecs.a; sourceTree = "<group>"; };
 		DF76818A240DBD20008F33C6 /* libopencv_core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_core.a; path = ../../../../usr/local/lib/libopencv_core.a; sourceTree = "<group>"; };
 		DF76818C240DBEE8008F33C6 /* libopencv_core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_core.a; path = ../../../../usr/local/Cellar/opencv/4.2.0_1/lib/libopencv_core.a; sourceTree = "<group>"; };
 		DF76818E240DBF0A008F33C6 /* F4C3.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = F4C3.entitlements; sourceTree = "<group>"; };
@@ -96,6 +97,7 @@
 		DF768185240DBCA2008F33C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DF66635E2416C2B000BF94DF /* libopencv_imgcodecs.a */,
 				DFF1B77C240ECC07006D8241 /* libopencv_imgproc.a */,
 				DF768198240DD6A6008F33C6 /* libopencv_highgui.a */,
 				DF768190240DC685008F33C6 /* librealsense2.2.33.1.dylib */,
@@ -299,6 +301,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = F4C3/F4C3.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DYD5R2843W;
 				ENABLE_HARDENED_RUNTIME = NO;
@@ -314,6 +317,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = F4C3/F4C3.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DYD5R2843W;
 				ENABLE_HARDENED_RUNTIME = NO;
