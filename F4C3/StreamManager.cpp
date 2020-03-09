@@ -7,6 +7,7 @@
 //
 
 #include "StreamManager.hpp"
+#include "ImageProcessor.hpp"
 
 /* Opens the video stream */
 void StreamManager::openStream(){
@@ -24,38 +25,39 @@ void StreamManager::openStream(){
 
 void StreamManager::start(){
     
+    //RINGUNN °_°
     running = true;
     
-    
     // Camera warmup (for auto exposure and such)
-    std::cout << "Camera warmup" << std::endl;
+    std::cout << "Camera warmup\n";
     for(int i = 0; i < 30; i++){
         frames = pipe.wait_for_frames(); // Waiting for frames
     }
     
-    std::cout << "Streaming..." << std::endl;
+    std::cout << "Streaming...\n";
 
     while(running){
-
-        frames = pipe.wait_for_frames(); // Waiting for frames
-        rs2::frame color_frame = frames.get_color_frame(); // Get color frame from the realsense device
-
-        cv::Mat color(cv::Size(capWidth, capHeight), CV_8UC3, (void*)color_frame.get_data(), cv::Mat::AUTO_STEP); // Creating frame
+        
+        // Waiting for frames
+        frames = pipe.wait_for_frames();
+        // Get color frame from the realsense device
+        rs2::frame color_frame = frames.get_color_frame();
+        
+        // Creating OpenCV image from the camera frame
+        cv::Mat color(cv::Size(capWidth, capHeight), CV_8UC3, (void*)color_frame.get_data(), cv::Mat::AUTO_STEP);
 
         if(color.data){
-            
             // Frame for processing
             procFrame = color;
-            
             // Frame for displaying (bounding boxes and such)
             dispFrame = color.clone();
-            
-            analyze(); // Analyzing frame
-
-                
-            cv::imshow("F4C3", dispFrame); // Display frame in the window
-            char key = (char)cv::waitKey(5); // Keyboard event
-            
+            // Analyzing frame
+            analyze();
+            ImageProcessor imageProcessor;
+            // Display frame in the window
+            cv::imshow("F4C3", dispFrame);
+            // Keyboard event
+            char key = (char)cv::waitKey(5);
             switch(key)
             {
                 // if the user presses 'q', exit loop and finish the program
@@ -63,22 +65,75 @@ void StreamManager::start(){
                     running = false;
                     break;
             }
-            
         }else{
             break;
         }
     }
-    
 }
 
-void StreamManager::analyze(){
+int* StreamManager::analyze(){
     
+    // Loading the detection model
+    if(!faceDetector.load("Haarcascades/haarcascade_frontalface_default.xml")){
+        std::cout << "Detection model is not loaded \n";
+        return 0;
+    }
+    
+    // A place for storing faces
+    std::vector<cv::Rect> faces;
+    
+    if(!procFrame.data){
+        std::cout<< "Error : Frame to be analyzed is not loaded \n";
+        return 0;
+    }
+    
+    // Detecting faces
+    faceDetector.detectMultiScale(procFrame, faces);
+    
+    if (faces.size() > 0){
+        // Detected face top left corner face
+        pt1 = cv::Point(faces[0].x, faces[0].y);
+        // Detected face bottom right corner
+        pt2 = cv::Point(faces[0].x + faces[0].height, faces[0].y + faces[0].width);
+
+        // New points for a larger Bounding Box
+        pt1_1 = cv::Point(pt1.x, pt1.y - (faces[0].height * 0.3));
+        pt2_2 = cv::Point(pt2.x, pt2.y + (faces[0].height * 0.5));
+    }
+    
+    cv::rectangle(dispFrame, pt1, pt2, cv::Scalar(0, 255, 0), 2, 0, 0);
+    cv::rectangle(dispFrame, pt1_1, pt2_2, cv::Scalar(0,255,0), 2, 0, 0);
+    
+    if(!(pt1.x < 0) || !(pt2.x > capWidth) || !(pt1.y - (faces[0].height * 0.3) < 0) || !(pt2.y + (faces[0].height * 0.5) > capHeight)){
+        
+    
+        if(faces[0].height > 100 && faces[0].height < 400){
+            // Pause the stream
+            pauseStream();
+            // Passing detected face's bounding box to be handled by the Image Processor
+            int coords[] = {
+                faces[0].x,
+                pt1_1.y,
+                faces[0].width,
+                pt2_2.y - pt1_1.y
+            };
+            
+            int * p_coords = coords;
+            
+            return p_coords;
+        }
+        else{
+            return 0;
+        }
+    }
+    else
+        return 0;
 }
 
 void StreamManager::playStream(){
-    
+    running = true;
 }
 
 void StreamManager::pauseStream(){
-    
+    running = false;
 }
