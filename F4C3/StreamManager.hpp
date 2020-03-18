@@ -24,7 +24,7 @@ public:
     void start(); // Starts the video stream
     void pauseStream(); // Pauses the video stream
     void playStream(); // Plays the video stream
-    int* analyze(); // Analyzes the current frame
+    void analyze(); // Analyzes the current frame
     
 private:
     int capWidth; // Width of the video stream

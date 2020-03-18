@@ -66,17 +66,18 @@ void StreamManager::start(){
                     break;
             }
         }else{
+            std::cout << "No image data";
             break;
         }
     }
 }
 
-int* StreamManager::analyze(){
+void StreamManager::analyze(){
     
     // Loading the detection model
-    if(!faceDetector.load("Haarcascades/haarcascade_frontalface_default.xml")){
+    if(!faceDetector.load("/Users/gastongougeon/Desktop/F4C3/models/haarcascade_frontalface_default.xml")){
         std::cout << "Detection model is not loaded \n";
-        return 0;
+        return;
     }
     
     // A place for storing faces
@@ -84,7 +85,7 @@ int* StreamManager::analyze(){
     
     if(!procFrame.data){
         std::cout<< "Error : Frame to be analyzed is not loaded \n";
-        return 0;
+        return;
     }
     
     // Detecting faces
@@ -99,35 +100,10 @@ int* StreamManager::analyze(){
         // New points for a larger Bounding Box
         pt1_1 = cv::Point(pt1.x, pt1.y - (faces[0].height * 0.3));
         pt2_2 = cv::Point(pt2.x, pt2.y + (faces[0].height * 0.5));
-    }
-    
-    cv::rectangle(dispFrame, pt1, pt2, cv::Scalar(0, 255, 0), 2, 0, 0);
-    cv::rectangle(dispFrame, pt1_1, pt2_2, cv::Scalar(0,255,0), 2, 0, 0);
-    
-    if(!(pt1.x < 0) || !(pt2.x > capWidth) || !(pt1.y - (faces[0].height * 0.3) < 0) || !(pt2.y + (faces[0].height * 0.5) > capHeight)){
         
-    
-        if(faces[0].height > 100 && faces[0].height < 400){
-            // Pause the stream
-            pauseStream();
-            // Passing detected face's bounding box to be handled by the Image Processor
-            int coords[] = {
-                faces[0].x,
-                pt1_1.y,
-                faces[0].width,
-                pt2_2.y - pt1_1.y
-            };
-            
-            int * p_coords = coords;
-            
-            return p_coords;
-        }
-        else{
-            return 0;
-        }
+        cv::rectangle(dispFrame, pt1, pt2, cv::Scalar(0, 255, 0), 2, 0, 0);
+        cv::rectangle(dispFrame, pt1_1, pt2_2, cv::Scalar(0,255,0), 2, 0, 0);
     }
-    else
-        return 0;
 }
 
 void StreamManager::playStream(){

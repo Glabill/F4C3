@@ -17,6 +17,7 @@ void Core::run(){
     std::cout << "Core running \n";
 
     StreamManager streamManager;
+    
     streamManager.openStream();
     streamManager.start();
 }
