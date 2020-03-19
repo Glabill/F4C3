@@ -13,7 +13,6 @@
 int main(int argc, const char * argv[]) {
     
     Core core;
-    std::cout << "Hello" << std::endl;
     core.run(); // Starts the app
     
 }

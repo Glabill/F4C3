@@ -15,13 +15,9 @@
 class Core{
 
     public:
-    
     void run(); // Starts the app
-
-    private:
-
-    std::string savePath; // Last captured frame path
-    std::string archSavePath; // Archive folder path
+    
+    int globalFrameHistory;
     
 };
 

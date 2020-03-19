@@ -15,6 +15,10 @@ void StreamManager::openStream(){
     capWidth = 1280;
     capHeight = 720;
     
+    savePath = "/Users/gastongougeon/Desktop/F4C3/face/face.png";
+    
+    
+    
     rs2::config cfg; // Config object for a realsense pipeline
     cfg.enable_stream(RS2_STREAM_COLOR, capWidth, capHeight, RS2_FORMAT_BGR8, 30); // Config of the config object
     
@@ -24,7 +28,6 @@ void StreamManager::openStream(){
 
 
 void StreamManager::start(){
-    
     //RINGUNN °_°
     running = true;
     
@@ -32,6 +35,15 @@ void StreamManager::start(){
     std::cout << "Camera warmup\n";
     for(int i = 0; i < 30; i++){
         frames = pipe.wait_for_frames(); // Waiting for frames
+    }
+    
+    
+    
+    if (!faceDetector.load("/Users/gastongougeon/Desktop/F4C3/models/haarcascade_frontalface_default.xml")){
+        std::cout << "Detection model is not loaded \n";
+        return;
+    } else {
+        std::cout << "Detection model loaded \n";
     }
     
     std::cout << "Streaming...\n";
@@ -46,14 +58,14 @@ void StreamManager::start(){
         // Creating OpenCV image from the camera frame
         cv::Mat color(cv::Size(capWidth, capHeight), CV_8UC3, (void*)color_frame.get_data(), cv::Mat::AUTO_STEP);
 
-        if(color.data){
+        if (color.data){
             // Frame for processing
             procFrame = color;
             // Frame for displaying (bounding boxes and such)
             dispFrame = color.clone();
             // Analyzing frame
+            
             analyze();
-            ImageProcessor imageProcessor;
             // Display frame in the window
             cv::imshow("F4C3", dispFrame);
             // Keyboard event
@@ -65,7 +77,7 @@ void StreamManager::start(){
                     running = false;
                     break;
             }
-        }else{
+        } else {
             std::cout << "No image data";
             break;
         }
@@ -74,18 +86,16 @@ void StreamManager::start(){
 
 void StreamManager::analyze(){
     
-    // Loading the detection model
-    if(!faceDetector.load("/Users/gastongougeon/Desktop/F4C3/models/haarcascade_frontalface_default.xml")){
-        std::cout << "Detection model is not loaded \n";
-        return;
-    }
+    ImageProcessor imageProcessor;
     
     // A place for storing faces
     std::vector<cv::Rect> faces;
     
-    if(!procFrame.data){
+    if (!procFrame.data){
         std::cout<< "Error : Frame to be analyzed is not loaded \n";
         return;
+    } else {
+        std::cout<< "Analyzing \n";
     }
     
     // Detecting faces
@@ -103,6 +113,17 @@ void StreamManager::analyze(){
         
         cv::rectangle(dispFrame, pt1, pt2, cv::Scalar(0, 255, 0), 2, 0, 0);
         cv::rectangle(dispFrame, pt1_1, pt2_2, cv::Scalar(0,255,0), 2, 0, 0);
+        
+        if (pt1.x < 0 || pt2.x > capWidth || pt1.y - (faces[0].height * 0.3) < 0 || pt2.y + (faces[0].height * 0.5) > capHeight){
+            return;
+        } else if (faces[0].height > 100 && faces[0].height < 400){
+                
+            imageProcessor.crop(procFrame, pt1_1.x, pt1_1.y,faces[0].width, faces[0].height);
+            imageProcessor.save(imageProcessor.frame, savePath, archSavePath());
+            
+            frameHistory ++;
+            
+        }
     }
 }
 
@@ -112,4 +133,9 @@ void StreamManager::playStream(){
 
 void StreamManager::pauseStream(){
     running = false;
+}
+
+std::string StreamManager::archSavePath(){
+    std::string path = "/Users/gastongougeon/Desktop/F4C3/face_archive/face";
+    return path + std::to_string(frameHistory) + ".png";
 }

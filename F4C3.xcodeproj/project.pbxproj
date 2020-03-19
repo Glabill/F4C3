@@ -13,9 +13,10 @@
 		DF768194240DC777008F33C6 /* Core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF768192240DC777008F33C6 /* Core.cpp */; };
 		DF768197240DD30B008F33C6 /* StreamManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF768195240DD30B008F33C6 /* StreamManager.cpp */; };
 		DF768199240DD6EF008F33C6 /* libopencv_highgui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF768198240DD6A6008F33C6 /* libopencv_highgui.a */; };
+		DF7B9C852422F37F00566767 /* libopencv_imgcodecs.4.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7B9C842422F37F00566767 /* libopencv_imgcodecs.4.2.0.dylib */; };
+		DF7B9C862422F37F00566767 /* libopencv_imgcodecs.4.2.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = DF7B9C842422F37F00566767 /* libopencv_imgcodecs.4.2.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		DFD1023B241EC67E00A2F14D /* libopencv_imgproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF1B77C240ECC07006D8241 /* libopencv_imgproc.a */; };
 		DFD1023C241EC6FB00A2F14D /* libopencv_objdetect.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DFD1023A241EB15A00A2F14D /* libopencv_objdetect.a */; };
-		DFD1023D241EC71B00A2F14D /* libopencv_imgcodecs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF66635E2416C2B000BF94DF /* libopencv_imgcodecs.a */; };
 		DFF1B77D240ECC08006D8241 /* libopencv_imgproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF1B77C240ECC07006D8241 /* libopencv_imgproc.a */; };
 		DFF1B780240ECC20006D8241 /* ImageProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFF1B77E240ECC20006D8241 /* ImageProcessor.cpp */; };
 /* End PBXBuildFile section */
@@ -29,6 +30,17 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
+		};
+		DF7B9C872422F37F00566767 /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DF7B9C862422F37F00566767 /* libopencv_imgcodecs.4.2.0.dylib in Embed Libraries */,
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -61,6 +73,8 @@
 		DF7B9C812422B85900566767 /* haarcascade_smile.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_smile.xml; sourceTree = "<group>"; };
 		DF7B9C822422B85900566767 /* haarcascade_fullbody.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_fullbody.xml; sourceTree = "<group>"; };
 		DF7B9C832422B85900566767 /* haarcascade_eye_tree_eyeglasses.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_eye_tree_eyeglasses.xml; sourceTree = "<group>"; };
+		DF7B9C842422F37F00566767 /* libopencv_imgcodecs.4.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgcodecs.4.2.0.dylib; path = ../../../../usr/local/Cellar/opencv/4.2.0_1/lib/libopencv_imgcodecs.4.2.0.dylib; sourceTree = "<group>"; };
+		DF7B9C882424039700566767 /* F4C3Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = F4C3Debug.entitlements; sourceTree = "<group>"; };
 		DFD1023A241EB15A00A2F14D /* libopencv_objdetect.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_objdetect.a; path = ../../../../usr/local/Cellar/opencv/4.2.0_1/lib/libopencv_objdetect.a; sourceTree = "<group>"; };
 		DFF1B77C240ECC07006D8241 /* libopencv_imgproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_imgproc.a; path = ../../../../usr/local/Cellar/opencv/4.2.0_1/lib/libopencv_imgproc.a; sourceTree = "<group>"; };
 		DFF1B77E240ECC20006D8241 /* ImageProcessor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ImageProcessor.cpp; sourceTree = "<group>"; };
@@ -73,7 +87,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DFF1B77D240ECC08006D8241 /* libopencv_imgproc.a in Frameworks */,
-				DFD1023D241EC71B00A2F14D /* libopencv_imgcodecs.a in Frameworks */,
+				DF7B9C852422F37F00566767 /* libopencv_imgcodecs.4.2.0.dylib in Frameworks */,
 				DF768199240DD6EF008F33C6 /* libopencv_highgui.a in Frameworks */,
 				DF768191240DC686008F33C6 /* librealsense2.2.33.1.dylib in Frameworks */,
 				DF76818D240DBEE9008F33C6 /* libopencv_core.a in Frameworks */,
@@ -106,6 +120,7 @@
 		DF389DF4240B25800068B775 /* F4C3 */ = {
 			isa = PBXGroup;
 			children = (
+				DF7B9C882424039700566767 /* F4C3Debug.entitlements */,
 				DF76818E240DBF0A008F33C6 /* F4C3.entitlements */,
 				DF389DF5240B25800068B775 /* main.cpp */,
 				DF768192240DC777008F33C6 /* Core.cpp */,
@@ -121,6 +136,7 @@
 		DF768185240DBCA2008F33C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DF7B9C842422F37F00566767 /* libopencv_imgcodecs.4.2.0.dylib */,
 				DFD1023A241EB15A00A2F14D /* libopencv_objdetect.a */,
 				DF66635E2416C2B000BF94DF /* libopencv_imgcodecs.a */,
 				DFF1B77C240ECC07006D8241 /* libopencv_imgproc.a */,
@@ -165,6 +181,7 @@
 				DF389DEE240B25800068B775 /* Sources */,
 				DF389DEF240B25800068B775 /* Frameworks */,
 				DF389DF0240B25800068B775 /* CopyFiles */,
+				DF7B9C872422F37F00566767 /* Embed Libraries */,
 			);
 			buildRules = (
 			);
@@ -348,8 +365,8 @@
 		DF389DFA240B25800068B775 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = F4C3/F4C3.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_ENTITLEMENTS = F4C3/F4C3Debug.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DYD5R2843W;
 				ENABLE_HARDENED_RUNTIME = NO;

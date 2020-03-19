@@ -9,15 +9,16 @@
 #include "Core.hpp"
 
 // Paths for the current frame and the archive folder
-std::string savePath = "./output/face.png";
-std::string archSavePath = "./output/arch/";
+
 
 // Starts the app
 void Core::run(){
-    std::cout << "Core running \n";
-
+    
+    globalFrameHistory = 0;
+    
     StreamManager streamManager;
     
     streamManager.openStream();
+    streamManager.frameHistory = globalFrameHistory;
     streamManager.start();
 }

@@ -14,6 +14,7 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/objdetect.hpp>
 #include <opencv2/imgproc.hpp>
+#include <opencv2/imgcodecs.hpp>
 
 #endif /* StreamManager_hpp */
 
@@ -26,10 +27,12 @@ public:
     void playStream(); // Plays the video stream
     void analyze(); // Analyzes the current frame
     
+    int frameHistory;
+
+    
 private:
     int capWidth; // Width of the video stream
     int capHeight; // Height of the video stream
-    
     cv::Mat procFrame; // Frame for processing
     cv::Mat dispFrame; // Frame for displaying (bounding boxes and such)
     
@@ -41,6 +44,9 @@ private:
     cv::Point pt2;
     cv::Point pt1_1;
     cv::Point pt2_2;
+    
+    std::string savePath;
+    std::string archSavePath();
     
     bool running; // 2 CHECK IF IT S RUNGHING (°|°)
     

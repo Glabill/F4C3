@@ -14,7 +14,7 @@ ImageProcessor::ImageProcessor(){
 
 void ImageProcessor::crop(cv::Mat fullFrame, int x, int y, int width, int height){
     
-    if(!frame.data){
+    if(!fullFrame.data){
         std::cout << "Error : source image not loaded \n";
         return;
     }
@@ -26,11 +26,12 @@ void ImageProcessor::save(cv::Mat frame, std::string savePath, std::string archS
     
     if(!frame.data){
         std::cout << "Error : cropped image not loaded \n";
+        return;
     }
     // Writing frame to the current frame folder
     cv::imwrite(savePath, frame);
     // archiving frame in the archive folder
-    cv::imwrite((archSavePath + "face_archive" + std::to_string(frameHistory) + ".png"), frame);
+    cv::imwrite(archSavePath, frame);
     
     std::cout << "Frame saved. \n";
             
