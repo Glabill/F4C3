@@ -8,8 +8,8 @@
 
 #include "ImageProcessor.hpp"
 
-ImageProcessor::ImageProcessor(){
-    frameHistory = 0;
+ImageProcessor::ImageProcessor(int sessionFrameHistory){
+    frameHistory = sessionFrameHistory;
 }
 
 void ImageProcessor::crop(cv::Mat fullFrame, int x, int y, int width, int height){

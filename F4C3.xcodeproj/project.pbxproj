@@ -75,6 +75,7 @@
 		DF7B9C832422B85900566767 /* haarcascade_eye_tree_eyeglasses.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_eye_tree_eyeglasses.xml; sourceTree = "<group>"; };
 		DF7B9C842422F37F00566767 /* libopencv_imgcodecs.4.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgcodecs.4.2.0.dylib; path = ../../../../usr/local/Cellar/opencv/4.2.0_1/lib/libopencv_imgcodecs.4.2.0.dylib; sourceTree = "<group>"; };
 		DF7B9C882424039700566767 /* F4C3Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = F4C3Debug.entitlements; sourceTree = "<group>"; };
+		DFCDB3DF2426C79700EA8130 /* config.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = config.txt; sourceTree = "<group>"; };
 		DFD1023A241EB15A00A2F14D /* libopencv_objdetect.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_objdetect.a; path = ../../../../usr/local/Cellar/opencv/4.2.0_1/lib/libopencv_objdetect.a; sourceTree = "<group>"; };
 		DFF1B77C240ECC07006D8241 /* libopencv_imgproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_imgproc.a; path = ../../../../usr/local/Cellar/opencv/4.2.0_1/lib/libopencv_imgproc.a; sourceTree = "<group>"; };
 		DFF1B77E240ECC20006D8241 /* ImageProcessor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ImageProcessor.cpp; sourceTree = "<group>"; };
@@ -102,6 +103,7 @@
 		DF389DE9240B25800068B775 = {
 			isa = PBXGroup;
 			children = (
+				DF7B9C8A2425483A00566767 /* data */,
 				DF7B9C722422B85900566767 /* models */,
 				DF389DF4240B25800068B775 /* F4C3 */,
 				DF389DF3240B25800068B775 /* Products */,
@@ -169,6 +171,14 @@
 				DF7B9C832422B85900566767 /* haarcascade_eye_tree_eyeglasses.xml */,
 			);
 			path = models;
+			sourceTree = "<group>";
+		};
+		DF7B9C8A2425483A00566767 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				DFCDB3DF2426C79700EA8130 /* config.txt */,
+			);
+			path = data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,6 +310,7 @@
 				SYSTEM_HEADER_SEARCH_PATHS = (
 					/usr/local/include/opencv4/,
 					/usr/local/include,
+					/usr/loacl/include/rapidjson,
 				);
 			};
 			name = Debug;
@@ -358,6 +369,7 @@
 				SYSTEM_HEADER_SEARCH_PATHS = (
 					/usr/local/include/opencv4/,
 					/usr/local/include,
+					/usr/loacl/include/rapidjson,
 				);
 			};
 			name = Release;

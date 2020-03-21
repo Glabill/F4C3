@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:../face"
+      name = "face">
+      <Group
+         location = "group:/Users/gastongougeon/Desktop/F4C3/face/face_archive"
+         name = "face_archive">
+      </Group>
+   </Group>
+   <FileRef
+      location = "container:">
+   </FileRef>
+</Workspace>

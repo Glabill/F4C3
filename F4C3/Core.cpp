@@ -13,12 +13,9 @@
 
 // Starts the app
 void Core::run(){
-    
-    globalFrameHistory = 0;
-    
+        
     StreamManager streamManager;
     
     streamManager.openStream();
-    streamManager.frameHistory = globalFrameHistory;
     streamManager.start();
 }

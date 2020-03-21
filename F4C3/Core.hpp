@@ -16,9 +16,7 @@ class Core{
 
     public:
     void run(); // Starts the app
-    
-    int globalFrameHistory;
-    
+        
 };
 
 #endif /* Core_hpp */

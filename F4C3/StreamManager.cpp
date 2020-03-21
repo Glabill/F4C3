@@ -7,27 +7,30 @@
 //
 
 #include "StreamManager.hpp"
-#include "ImageProcessor.hpp"
 
 /* Opens the video stream */
 void StreamManager::openStream(){
     
+    frameHistory = retrieveFrameHistory();
+    
+    //Capture width and height
     capWidth = 1280;
     capHeight = 720;
     
-    savePath = "/Users/gastongougeon/Desktop/F4C3/face/face.png";
+    // Config object for a realsense pipeline
+    rs2::config cfg;
+    cfg.enable_stream(RS2_STREAM_COLOR, capWidth, capHeight, RS2_FORMAT_BGR8, 30);
     
+    // Starting the pipeline
+    pipe.start(cfg);
     
-    
-    rs2::config cfg; // Config object for a realsense pipeline
-    cfg.enable_stream(RS2_STREAM_COLOR, capWidth, capHeight, RS2_FORMAT_BGR8, 30); // Config of the config object
-    
-    pipe.start(cfg); // Starting the pipeline
-    cv::namedWindow("F4C3", cv::WINDOW_FULLSCREEN); // Creating window
+    // Creating window
+    cv::namedWindow("F4C3", cv::WINDOW_FULLSCREEN);
 }
 
 
 void StreamManager::start(){
+    
     //RINGUNN °_°
     running = true;
     
@@ -74,7 +77,7 @@ void StreamManager::start(){
             {
                 // if the user presses 'q', exit loop and finish the program
                 case 'q' :
-                    running = false;
+                    closeStream();
                     break;
             }
         } else {
@@ -86,7 +89,15 @@ void StreamManager::start(){
 
 void StreamManager::analyze(){
     
-    ImageProcessor imageProcessor;
+    //Captured frames Save path
+    savePath = "/Users/gastongougeon/Desktop/F4C3/face/";
+    archRelSavePath = "/face_archive/";
+    
+    //Captured frames outputs
+    faceFileName = "face.png";
+    archiveFileName = "archive-face" + std::to_string(frameHistory) + ".png";
+    
+    ImageProcessor imageProcessor(frameHistory);
     
     // A place for storing faces
     std::vector<cv::Rect> faces;
@@ -94,16 +105,18 @@ void StreamManager::analyze(){
     if (!procFrame.data){
         std::cout<< "Error : Frame to be analyzed is not loaded \n";
         return;
-    } else {
+    } /* else {
         std::cout<< "Analyzing \n";
-    }
+    } */
     
     // Detecting faces
     faceDetector.detectMultiScale(procFrame, faces);
     
     if (faces.size() > 0){
+        
         // Detected face top left corner face
         pt1 = cv::Point(faces[0].x, faces[0].y);
+        
         // Detected face bottom right corner
         pt2 = cv::Point(faces[0].x + faces[0].height, faces[0].y + faces[0].width);
 
@@ -118,8 +131,8 @@ void StreamManager::analyze(){
             return;
         } else if (faces[0].height > 100 && faces[0].height < 400){
                 
-            imageProcessor.crop(procFrame, pt1_1.x, pt1_1.y,faces[0].width, faces[0].height);
-            imageProcessor.save(imageProcessor.frame, savePath, archSavePath());
+            imageProcessor.crop(procFrame, pt1_1.x, pt1_1.y,faces[0].width, faces[0].height + faces[0].height * 0.5);
+            imageProcessor.save(imageProcessor.frame, (savePath + faceFileName), (savePath + archRelSavePath + archiveFileName));
             
             frameHistory ++;
             
@@ -135,7 +148,27 @@ void StreamManager::pauseStream(){
     running = false;
 }
 
-std::string StreamManager::archSavePath(){
-    std::string path = "/Users/gastongougeon/Desktop/F4C3/face_archive/face";
-    return path + std::to_string(frameHistory) + ".png";
+void StreamManager::closeStream(){
+    running = false;
 }
+
+int StreamManager::retrieveFrameHistory(){
+    Config config;
+    loadConfig(config);
+    std::cout << config.sessionFrameHistory << '\n';
+    return config.sessionFrameHistory;
+}
+
+void StreamManager::loadConfig(Config& config){
+    
+    std::ifstream filein("/Users/gastongougeon/Desktop/F4C3/data/config.txt");
+    std::string line;
+    
+    while (getline(filein, line)) {
+        
+        std::istringstream sin(line.substr(line.find("=") + 1));
+        
+        if (line.find("sessionFrameHistory") != -1)
+            sin >> config.sessionFrameHistory;
+    }
+};
