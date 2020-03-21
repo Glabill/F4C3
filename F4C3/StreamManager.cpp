@@ -11,6 +11,8 @@
 /* Opens the video stream */
 void StreamManager::openStream(){
     
+    configFilePath = "/Users/gastongougeon/Desktop/F4C3/data/config.txt";
+    
     frameHistory = retrieveFrameHistory();
     
     //Capture width and height
@@ -150,6 +152,7 @@ void StreamManager::pauseStream(){
 
 void StreamManager::closeStream(){
     running = false;
+    writeFramehistory();
 }
 
 int StreamManager::retrieveFrameHistory(){
@@ -161,7 +164,7 @@ int StreamManager::retrieveFrameHistory(){
 
 void StreamManager::loadConfig(Config& config){
     
-    std::ifstream filein("/Users/gastongougeon/Desktop/F4C3/data/config.txt");
+    std::ifstream filein(configFilePath);
     std::string line;
     
     while (getline(filein, line)) {
@@ -172,3 +175,13 @@ void StreamManager::loadConfig(Config& config){
             sin >> config.sessionFrameHistory;
     }
 };
+
+void StreamManager::writeFramehistory(){
+    
+    std::ofstream fileout;
+    
+    fileout.open(configFilePath);
+    fileout << "sessionFrameHistory = " << frameHistory;
+    fileout.close();
+    
+}

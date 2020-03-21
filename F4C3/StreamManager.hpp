@@ -38,6 +38,8 @@ public:
     
 private:
     
+    std::string configFilePath;
+    
     int frameHistory;
     
     struct Config {
