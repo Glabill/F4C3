@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
-   <Group
-      location = "group:../face_archive"
-      name = "face_archive">
-   </Group>
-   <Group
-      location = "group:../face"
-      name = "face">
-   </Group>
    <FileRef
       location = "self:">
    </FileRef>

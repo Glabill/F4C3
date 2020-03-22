@@ -33,8 +33,9 @@ void StreamManager::openStream(){
 
 /* Closing sequence for the video stream */
 void StreamManager::closeStream(){
+    
     // Writing frame history to config file for the next session
-    u::writeFrameHistory(frameHistory);
+    u::writeConfig(frameHistory);
     
     running = false;
 }
@@ -43,7 +44,7 @@ void StreamManager::closeStream(){
 /* Stream start and loop */
 void StreamManager::start(){
     
-    //RINGUNN °_°
+    // RINGUNN °_°
     running = true;
     
     // Camera warmup (for auto exposure and such)
@@ -55,7 +56,7 @@ void StreamManager::start(){
     
     
     if (!faceDetector.load("/Users/gastongougeon/Desktop/F4C3/models/haarcascade_frontalface_default.xml")){
-        std::cout << "Detection model is not loaded \n";
+        std::cerr << "Detection model is not loaded \n";
         return;
     } else {
         std::cout << "Detection model loaded \n";
@@ -83,6 +84,7 @@ void StreamManager::start(){
             analyze();
             // Display frame in the window
             cv::imshow("F4C3", dispFrame);
+            
             // Keyboard event
             char key = (char)cv::waitKey(5);
             switch(key)
@@ -99,25 +101,30 @@ void StreamManager::start(){
     }
 }
 
+void StreamManager::closeCallback(){
+    running = false;
+}
+
 
 /* analyses the image (and saves it if it fits) */
 void StreamManager::analyze(){
     
-    //Captured frames Save path
+    // Captured frames Save path
     savePath = "/Users/gastongougeon/Desktop/F4C3/face/";
     archRelSavePath = "/face_archive/";
     
-    //Captured frames outputs
+    // Captured frames outputs
     faceFileName = "face.png";
     archiveFileName = "archive-face" + std::to_string(frameHistory) + ".png";
     
+    // Spawns an image processor instance with the current frame history as its parameter
     ImageProcessor imageProcessor(frameHistory);
     
     // A place for storing faces
     std::vector<cv::Rect> faces;
     
     if (!procFrame.data){
-        std::cout<< "Error : Frame to be analyzed is not loaded \n";
+        std::cerr<< "Frame to be analyzed is not loaded \n";
         return;
     }
     
@@ -144,7 +151,7 @@ void StreamManager::analyze(){
         if (pt1.x < 0 || pt2.x > capWidth || pt1.y - (faces[0].height * 0.3) < 0 || pt2.y + (faces[0].height * 0.5) > capHeight){
             return;
             
-        // Saving the frame if the position is correct
+        // Cropping & Saving the frame if the position is correct
         } else if (faces[0].height > 100 && faces[0].height < 400){
                 
             imageProcessor.crop(procFrame, pt1_1.x, pt1_1.y,faces[0].width, faces[0].height + faces[0].height * 0.5);

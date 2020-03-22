@@ -38,6 +38,8 @@ public:
     
 private:
     
+    void closeCallback();
+    
     int frameHistory; // Keeps track of the saved frame history in the current session
     
     int capWidth; // Width of the video stream

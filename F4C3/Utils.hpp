@@ -18,7 +18,9 @@
 namespace u {
 
     struct Config {
-        int sessionFrameHistory; // Last session's saved frame history
+        int SFH; // Last session's saved frame history
+        std::string SFHLabel;
+        
         std::string filePath; // Where the config file path is situated
     };
 
@@ -27,7 +29,7 @@ namespace u {
 
     std::string readConfig(Config& config);
 
-    void writeFrameHistory(int frameHistory);
+    void writeConfig(int frameHistory);
 
     int retrieveFrameHistory();
 

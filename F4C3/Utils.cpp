@@ -20,24 +20,25 @@ void u::loadConfig(Config& config){
         std::istringstream strin(line.substr(line.find("=") + 1));
         
         if (line.find("sessionFrameHistory") != -1)
-            strin >> config.sessionFrameHistory;
+            strin >> config.SFH;
+            config.SFHLabel = "sessionFrameHistory";
     }
 }
 
-void u::writeFrameHistory(int frameHistory){
+void u::writeConfig(int frameHistory){
     Config config;
     loadConfig(config);
     std::ofstream fileout;
     
-    config.sessionFrameHistory = frameHistory;
+    config.SFH = frameHistory;
     
     fileout.open(config.filePath);
-    fileout << "sessionFrameHistory = " << config.sessionFrameHistory;
+    fileout << config.SFHLabel << " = " << config.SFH;
     fileout.close();
 }
 
 int u::retrieveFrameHistory(){
     Config config;
     loadConfig(config);
-    return config.sessionFrameHistory;
+    return config.SFH;
 }
