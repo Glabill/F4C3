@@ -25,6 +25,8 @@ namespace u {
     
     void loadConfig(Config& config);
 
+    std::string readConfig(Config& config);
+
     void writeFrameHistory(int frameHistory);
 
     int retrieveFrameHistory();

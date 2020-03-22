@@ -17,25 +17,23 @@ void u::loadConfig(Config& config){
     
     while (getline(filein, line)) {
         
-        std::istringstream sin(line.substr(line.find("=") + 1));
+        std::istringstream strin(line.substr(line.find("=") + 1));
         
         if (line.find("sessionFrameHistory") != -1)
-            sin >> config.sessionFrameHistory;
+            strin >> config.sessionFrameHistory;
     }
 }
 
 void u::writeFrameHistory(int frameHistory){
-    
     Config config;
-    config.filePath = "/Users/gastongougeon/Desktop/F4C3/data/config.txt";
+    loadConfig(config);
     std::ofstream fileout;
     
-    fileout.open(config.filePath);
-    fileout << "sessionFrameHistory = " << frameHistory;
-    fileout.close();
+    config.sessionFrameHistory = frameHistory;
     
-    std::cout << config.filePath << frameHistory << '\n';
-
+    fileout.open(config.filePath);
+    fileout << "sessionFrameHistory = " << config.sessionFrameHistory;
+    fileout.close();
 }
 
 int u::retrieveFrameHistory(){

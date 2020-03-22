@@ -30,6 +30,7 @@ void StreamManager::openStream(){
     cv::namedWindow("F4C3", cv::WINDOW_FULLSCREEN);
 }
 
+
 /* Closing sequence for the video stream */
 void StreamManager::closeStream(){
     // Writing frame history to config file for the next session
@@ -37,6 +38,7 @@ void StreamManager::closeStream(){
     
     running = false;
 }
+
 
 /* Stream start and loop */
 void StreamManager::start(){
@@ -96,6 +98,7 @@ void StreamManager::start(){
         }
     }
 }
+
 
 /* analyses the image (and saves it if it fits) */
 void StreamManager::analyze(){
