@@ -8,14 +8,14 @@
 
 #include "StreamManager.hpp"
 
-/* Opens the video stream */
+/* Opening sequence for the video stream */
 void StreamManager::openStream(){
+
+    // Keeping track of the saved frame history
+    frameHistory = u::retrieveFrameHistory();
+    std::cout << frameHistory << '\n';
     
-    configFilePath = "/Users/gastongougeon/Desktop/F4C3/data/config.txt";
-    
-    frameHistory = retrieveFrameHistory();
-    
-    //Capture width and height
+    // Capture width and height
     capWidth = 1280;
     capHeight = 720;
     
@@ -30,7 +30,15 @@ void StreamManager::openStream(){
     cv::namedWindow("F4C3", cv::WINDOW_FULLSCREEN);
 }
 
+/* Closing sequence for the video stream */
+void StreamManager::closeStream(){
+    // Writing frame history to config file for the next session
+    u::writeFrameHistory(frameHistory);
+    
+    running = false;
+}
 
+/* Stream start and loop */
 void StreamManager::start(){
     
     //RINGUNN °_°
@@ -89,6 +97,7 @@ void StreamManager::start(){
     }
 }
 
+/* analyses the image (and saves it if it fits) */
 void StreamManager::analyze(){
     
     //Captured frames Save path
@@ -107,9 +116,7 @@ void StreamManager::analyze(){
     if (!procFrame.data){
         std::cout<< "Error : Frame to be analyzed is not loaded \n";
         return;
-    } /* else {
-        std::cout<< "Analyzing \n";
-    } */
+    }
     
     // Detecting faces
     faceDetector.detectMultiScale(procFrame, faces);
@@ -126,62 +133,25 @@ void StreamManager::analyze(){
         pt1_1 = cv::Point(pt1.x, pt1.y - (faces[0].height * 0.3));
         pt2_2 = cv::Point(pt2.x, pt2.y + (faces[0].height * 0.5));
         
-        cv::rectangle(dispFrame, pt1, pt2, cv::Scalar(0, 255, 0), 2, 0, 0);
-        cv::rectangle(dispFrame, pt1_1, pt2_2, cv::Scalar(0,255,0), 2, 0, 0);
+        // Drawing bounding boxes
+        cv::rectangle(dispFrame, pt1, pt2, cv::Scalar(0, 255, 0), 1, 0, 0);
+        cv::rectangle(dispFrame, pt1_1, pt2_2, cv::Scalar(0,255,0), 1, 0, 0);
         
+        // Checking face position in the image
         if (pt1.x < 0 || pt2.x > capWidth || pt1.y - (faces[0].height * 0.3) < 0 || pt2.y + (faces[0].height * 0.5) > capHeight){
             return;
+            
+        // Saving the frame if the position is correct
         } else if (faces[0].height > 100 && faces[0].height < 400){
                 
             imageProcessor.crop(procFrame, pt1_1.x, pt1_1.y,faces[0].width, faces[0].height + faces[0].height * 0.5);
             imageProcessor.save(imageProcessor.frame, (savePath + faceFileName), (savePath + archRelSavePath + archiveFileName));
             
             frameHistory ++;
-            
+                
         }
     }
 }
 
-void StreamManager::playStream(){
-    running = true;
-}
 
-void StreamManager::pauseStream(){
-    running = false;
-}
 
-void StreamManager::closeStream(){
-    running = false;
-    writeFramehistory();
-}
-
-int StreamManager::retrieveFrameHistory(){
-    Config config;
-    loadConfig(config);
-    std::cout << config.sessionFrameHistory << '\n';
-    return config.sessionFrameHistory;
-}
-
-void StreamManager::loadConfig(Config& config){
-    
-    std::ifstream filein(configFilePath);
-    std::string line;
-    
-    while (getline(filein, line)) {
-        
-        std::istringstream sin(line.substr(line.find("=") + 1));
-        
-        if (line.find("sessionFrameHistory") != -1)
-            sin >> config.sessionFrameHistory;
-    }
-};
-
-void StreamManager::writeFramehistory(){
-    
-    std::ofstream fileout;
-    
-    fileout.open(configFilePath);
-    fileout << "sessionFrameHistory = " << frameHistory;
-    fileout.close();
-    
-}

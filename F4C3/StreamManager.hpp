@@ -21,10 +21,12 @@
 
 
 #include "ImageProcessor.hpp"
+#include "Utils.hpp"
 
 
 #endif /* StreamManager_hpp */
 
+/* Stream loop, image analysis, image saving etc.. */
 class StreamManager{
     
 public:
@@ -32,26 +34,15 @@ public:
     void openStream(); // Opens the video stream
     void closeStream(); // Closes the video stream
     void start(); // Starts the video stream
-    void pauseStream(); // Pauses the video stream
-    void playStream(); // Plays the video stream
     void analyze(); // Analyzes the current frame
     
 private:
     
-    std::string configFilePath;
-    
-    int frameHistory;
-    
-    struct Config {
-        int sessionFrameHistory;
-    };
-    
-    void loadConfig(Config& config);
-    int retrieveFrameHistory();
-    void writeFramehistory();
+    int frameHistory; // Keeps track of the saved frame history in the current session
     
     int capWidth; // Width of the video stream
     int capHeight; // Height of the video stream
+    
     cv::Mat procFrame; // Frame for processing
     cv::Mat dispFrame; // Frame for displaying (bounding boxes and such)
     
@@ -64,15 +55,13 @@ private:
     cv::Point pt1_1;
     cv::Point pt2_2;
     
-    std::string savePath;
-    std::string archRelSavePath;
-    std::string faceFileName;
-    std::string archiveFileName;
-    
-    std::string jsonFilePath;
-    
+    std::string savePath; // Global "face" folder path
+    std::string archRelSavePath; // "archive" folder path (relative savePath)
+    std::string faceFileName; // Frame file name (extension implies codec)
+    std::string archiveFileName; // Archive Frame file name (same ^ )
+        
     bool running; // 2 CHECK IF IT S RUNGHING (°|°)
     
-    cv::CascadeClassifier faceDetector; // Face detector
+    cv::CascadeClassifier faceDetector; // Face detection classifier
     
 };
