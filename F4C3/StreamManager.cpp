@@ -27,7 +27,7 @@ void StreamManager::openStream(){
     pipe.start(cfg);
     
     // Creating window
-    cv::namedWindow("F4C3", cv::WINDOW_FULLSCREEN);
+    cv::namedWindow("F4C3", cv::WINDOW_AUTOSIZE);
 }
 
 
@@ -49,7 +49,7 @@ void StreamManager::start(){
     
     // Camera warmup (for auto exposure and such)
     std::cout << "Camera warmup\n";
-    for(int i = 0; i < 30; i++){
+    for (int i = 0; i < 30; i++){
         frames = pipe.wait_for_frames(); // Waiting for frames
     }
     
@@ -64,7 +64,7 @@ void StreamManager::start(){
     
     std::cout << "Streaming...\n";
 
-    while(running){
+    while (running){
         
         // Waiting for frames
         frames = pipe.wait_for_frames();
@@ -99,10 +99,6 @@ void StreamManager::start(){
             break;
         }
     }
-}
-
-void StreamManager::closeCallback(){
-    running = false;
 }
 
 
@@ -153,12 +149,20 @@ void StreamManager::analyze(){
             
         // Cropping & Saving the frame if the position is correct
         } else if (faces[0].height > 100 && faces[0].height < 400){
-                
-            imageProcessor.crop(procFrame, pt1_1.x, pt1_1.y,faces[0].width, faces[0].height + faces[0].height * 0.5);
-            imageProcessor.save(imageProcessor.frame, (savePath + faceFileName), (savePath + archRelSavePath + archiveFileName));
             
-            frameHistory ++;
+            imageProcessor.crop(procFrame, pt1_1.x, pt1_1.y,faces[0].width, faces[0].height + faces[0].height * 0.5);
+            
+            blurGrade = imageProcessor.varOfLaplacian(imageProcessor.IpFrame);
+            std::cout << blurGrade << '\n';
+            
+            if(blurGrade > 80){
+                imageProcessor.save(imageProcessor.IpFrame, (savePath + faceFileName), (savePath + archRelSavePath + archiveFileName));
+                frameHistory ++;
                 
+            }else{
+                
+                return;
+            }
         }
     }
 }

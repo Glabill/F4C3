@@ -8,14 +8,13 @@
 
 #include "Core.hpp"
 
-// Paths for the current frame and the archive folder
-
-
 // Starts the app
 void Core::run(){
-        
+    
+    // StreamManager will handle all the capture
     StreamManager streamManager;
     
+    // Opening video stream and starting capture session
     streamManager.openStream();
     streamManager.start();
 }

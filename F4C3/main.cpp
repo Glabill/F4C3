@@ -11,8 +11,6 @@
 #include "Core.hpp"
 
 int main(int argc, const char * argv[]) {
-    
     Core core;
     core.run(); // Starts the app
-    
 }
