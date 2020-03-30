@@ -54,10 +54,7 @@ private:
     cv::CascadeClassifier faceDetector; // Face detection classifier
     
     // Diverse points defining the face's bounding boxes
-    cv::Point pt1;
-    cv::Point pt2;
-    cv::Point pt1_1;
-    cv::Point pt2_2;
+    cv::Point pt1, pt2, pt1_1, pt2_2;
     
     std::string savePath; // Global "face" folder path
     std::string archRelSavePath; // "archive" folder path (relative savePath)

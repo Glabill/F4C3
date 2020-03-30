@@ -33,9 +33,9 @@ namespace u {
 
     int retrieveFrameHistory();
 
-    void solidOverlay(int with, int height, cv::Scalar color, float alpha, cv::Mat input, cv::Mat output);
+    void solidOverlay(int width, int height, cv::Scalar color, float alpha, cv::Mat input, cv::Mat output);
 
-void textOverlay(int x, int y, std::string text, cv::Scalar color, double fontScale,cv::Mat frame);
+    void textOverlay(int x, int y, std::string text, cv::Scalar color, double fontScale,cv::Mat frame);
 
 }
 #endif /* Utils_hpp */

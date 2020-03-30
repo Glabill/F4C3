@@ -64,5 +64,5 @@ void u::solidOverlay(int width, int height, cv::Scalar color, float alpha, cv::M
 
 void u::textOverlay(int x, int y, std::string text, cv::Scalar color, double fontScale, cv::Mat frame){
     
-    cv::putText(frame, text, cv::Point(x, y), cv::FONT_HERSHEY_SIMPLEX, fontScale, color, 1, cv::LINE_4);
+    cv::putText(frame, text, cv::Point(x, y), cv::FONT_HERSHEY_PLAIN, fontScale, color, 1, cv::FILLED);
 }

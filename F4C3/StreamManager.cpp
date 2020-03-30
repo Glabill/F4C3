@@ -27,7 +27,7 @@ void StreamManager::openStream(){
     pipe.start(cfg);
     
     // Creating window
-    cv::namedWindow("F4C3", cv::WINDOW_AUTOSIZE);
+    cv::namedWindow("F4C3", cv::WINDOW_FULLSCREEN);
 }
 
 
@@ -84,7 +84,10 @@ void StreamManager::start(){
             analyze();
             // Display frame in the window
             
-            u::textOverlay(20, 40, ("Frame history : " + std::to_string(frameHistory)), cv::Scalar(0, 255, 0), 0.5, dispFrame);
+            u::textOverlay(20, 40, "Frame history : ", cv::Scalar(0, 255, 0), 0.7, dispFrame);
+            u::textOverlay(20, 60, "Sharpness : ", cv::Scalar(0, 255, 0), 0.7, dispFrame);
+            
+            u::textOverlay(130, 40, std::to_string(frameHistory), cv::Scalar(0, 255, 0), 0.7, dispFrame);
             
             cv::imshow("F4C3", dispFrame);
             
@@ -139,8 +142,8 @@ void StreamManager::analyze(){
         pt2 = cv::Point(faces[0].x + faces[0].height, faces[0].y + faces[0].width);
 
         // New points for a larger Bounding Box
-        pt1_1 = cv::Point(pt1.x, pt1.y - (faces[0].height * 0.3));
-        pt2_2 = cv::Point(pt2.x, pt2.y + (faces[0].height * 0.5));
+        pt1_1 = cv::Point(pt1.x - (faces[0].width * 0.2), pt1.y - (faces[0].height * 0.3));
+        pt2_2 = cv::Point(pt2.x + (faces[0].width * 0.2), pt2.y + (faces[0].height * 0.5));
         
         // Drawing bounding boxes
         cv::rectangle(dispFrame, pt1, pt2, cv::Scalar(0, 255, 0), 1, 0, 0);
@@ -149,14 +152,15 @@ void StreamManager::analyze(){
         // Checking face position in the image
         if (pt1.x < 0 || pt2.x > capWidth || pt1.y - (faces[0].height * 0.3) < 0 || pt2.y + (faces[0].height * 0.5) > capHeight){
             return;
-            
-        // Cropping & Saving the frame if the position is correct
         } else if (faces[0].height > 100 && faces[0].height < 400){
             
             imageProcessor.crop(procFrame, pt1_1.x, pt1_1.y,faces[0].width, faces[0].height + faces[0].height * 0.5);
             
             blurGrade = imageProcessor.varOfLaplacian(imageProcessor.IpFrame);
             std::cout << blurGrade << '\n';
+            
+            u::textOverlay(130, 60, (std::to_string(blurGrade)), cv::Scalar(0, 255, 0), 0.7, dispFrame);
+
             
             if(blurGrade > 100){
                 imageProcessor.save(imageProcessor.IpFrame, (savePath + faceFileName), (savePath + archRelSavePath + archiveFileName));
@@ -166,12 +170,12 @@ void StreamManager::analyze(){
                 
                 frameHistory ++;
                 
-            }else{
-                
+            } else
                 return;
-            }
-        }
-    }
+        } else
+            return;
+    } else
+        return;
 }
 
 

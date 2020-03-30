@@ -26,6 +26,7 @@ public:
     int varOfLaplacian(cv::Mat frame);
     
     cv::Mat IpFrame; // TEH FREMA O_o
+    cv::Mat LpFrame; // Filtered frame
 
 private:
     int frameHistory; // To track IDs in the archive folder
