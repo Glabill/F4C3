@@ -18,7 +18,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-
+#include <thread>
+#include <chrono>
 
 #include "ImageProcessor.hpp"
 #include "Utils.hpp"

@@ -42,3 +42,27 @@ int u::retrieveFrameHistory(){
     loadConfig(config);
     return config.SFH;
 }
+
+void u::solidOverlay(int width, int height, cv::Scalar color, float alpha, cv::Mat input, cv::Mat output){
+    cv::Point oPt1;
+    cv::Point oPt2;
+                
+    oPt1.x = 0;
+    oPt1.y = 0;
+                
+    oPt2.x = width;
+    oPt2.y = height;
+    
+    cv::Mat overlay;
+                                            
+    input.copyTo(overlay);
+                
+    cv::rectangle(overlay, oPt1, oPt2, color, -1, 0, 0);
+                
+    cv::addWeighted(overlay, alpha, input, 1 - alpha, 0, output);
+}
+
+void u::textOverlay(int x, int y, std::string text, cv::Scalar color, double fontScale, cv::Mat frame){
+    
+    cv::putText(frame, text, cv::Point(x, y), cv::FONT_HERSHEY_SIMPLEX, fontScale, color, 1, cv::LINE_4);
+}

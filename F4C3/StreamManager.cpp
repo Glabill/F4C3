@@ -83,6 +83,9 @@ void StreamManager::start(){
             
             analyze();
             // Display frame in the window
+            
+            u::textOverlay(20, 40, ("Frame history : " + std::to_string(frameHistory)), cv::Scalar(0, 255, 0), 0.5, dispFrame);
+            
             cv::imshow("F4C3", dispFrame);
             
             // Keyboard event
@@ -155,8 +158,12 @@ void StreamManager::analyze(){
             blurGrade = imageProcessor.varOfLaplacian(imageProcessor.IpFrame);
             std::cout << blurGrade << '\n';
             
-            if(blurGrade > 80){
+            if(blurGrade > 100){
                 imageProcessor.save(imageProcessor.IpFrame, (savePath + faceFileName), (savePath + archRelSavePath + archiveFileName));
+                
+                u::solidOverlay(capWidth, capHeight, cv::Scalar(255, 255, 255), 0.2, dispFrame, dispFrame);
+                std::this_thread::sleep_for(std::chrono::milliseconds(300));
+                
                 frameHistory ++;
                 
             }else{
