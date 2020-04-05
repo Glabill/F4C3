@@ -1,1 +1,1 @@
-sessionFrameHistory = 128
+sessionFrameHistory = 502

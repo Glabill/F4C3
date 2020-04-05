@@ -213,6 +213,9 @@
 		DF389DEA240B25800068B775 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					New,
+				);
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = com.example;
 				TargetAttributes = {

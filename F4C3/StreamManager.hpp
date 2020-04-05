@@ -38,6 +38,9 @@ public:
     
 private:
     
+    bool archive;
+    bool save;
+    
     void analyze(); // Analyzes the current frame
     
     int frameHistory; // Keeps track of the saved frame history in the current session

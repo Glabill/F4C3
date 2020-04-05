@@ -22,7 +22,7 @@ class ImageProcessor {
 public:
     ImageProcessor(int sessionFrameHistory); // Constructor
     void crop(cv::Mat fullFrame, int x, int y, int width, int height); // Crops frame to the detected face's size and poition
-    void save(cv::Mat frame, std::string savePath, std::string archSavePath); // Saves current frame to the archive folder, and rewrites over the last saved frame.
+    void save(cv::Mat frame, std::string savePath, std::string archSavePath, bool archive); // Saves current frame to the archive folder, and rewrites over the last saved frame.
     int varOfLaplacian(cv::Mat frame);
     
     cv::Mat IpFrame; // TEH FREMA O_o

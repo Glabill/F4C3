@@ -29,7 +29,7 @@ void ImageProcessor::crop(cv::Mat fullFrame, int x, int y, int width, int height
 
 
 /* Saves and archives an image */
-void ImageProcessor::save(cv::Mat frame, std::string savePath, std::string archSavePath){
+void ImageProcessor::save(cv::Mat frame, std::string savePath, std::string archSavePath, bool archive){
     
     if(!frame.data){
         std::cout << "Error : cropped image not loaded \n";
@@ -37,14 +37,15 @@ void ImageProcessor::save(cv::Mat frame, std::string savePath, std::string archS
     }
     // Writing frame to the current frame folder
     cv::imwrite(savePath, frame);
+    
+    if (archive)
+        cv::imwrite(archSavePath, frame);
     // Archiving frame in the archive folder
-    cv::imwrite(archSavePath, frame);
     
     std::cout << "Frame saved. \n";
             
     frameHistory ++;
 }
-
 /**/
 int ImageProcessor::varOfLaplacian(cv::Mat frame){
     

@@ -37,5 +37,6 @@ namespace u {
 
     void textOverlay(int x, int y, std::string text, cv::Scalar color, double fontScale,cv::Mat frame);
 
+    cv::Scalar GREEN();
 }
 #endif /* Utils_hpp */

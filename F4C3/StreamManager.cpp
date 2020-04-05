@@ -10,6 +10,9 @@
 
 /* Opening sequence for the video stream */
 void StreamManager::openStream(){
+    
+    archive = true;
+    save = true;
 
     // Keeping track of the saved frame history
     frameHistory = u::retrieveFrameHistory();
@@ -36,7 +39,6 @@ void StreamManager::closeStream(){
     
     // Writing frame history to config file for the next session
     u::writeConfig(frameHistory);
-    
     running = false;
 }
 
@@ -82,12 +84,30 @@ void StreamManager::start(){
             // Analyzing frame
             
             analyze();
+            
             // Display frame in the window
+            u::textOverlay((capWidth/2 - 15), 20, "F4C3", u::GREEN(), 1.3, dispFrame);
+            u::textOverlay(20, capHeight - 40, "Quit : 'q'", u::GREEN(), 0.7, dispFrame);
+            u::textOverlay(20, capHeight - 60, "Toggle frame archiving : 'a'", u::GREEN(), 0.7, dispFrame);
+            u::textOverlay(20, capHeight - 80, "Toggle frame saving : 's'", u::GREEN(), 0.7, dispFrame);
+
+            u::textOverlay(20, 40, "Frame history : ", u::GREEN(), 0.7, dispFrame);
+            u::textOverlay(20, 60, "Sharpness : ", u::GREEN(), 0.7, dispFrame);
+            u::textOverlay(130, 40, std::to_string(frameHistory), u::GREEN(), 0.7, dispFrame);
+            u::textOverlay(20, 80, "Saving frames : ", u::GREEN(), 0.7, dispFrame);
+            if(save){
+                u::textOverlay(130, 80, "yes", u::GREEN(), 0.7, dispFrame);
+            }else if (!save){
+                u::textOverlay(130, 80, "no", u::GREEN(), 0.7, dispFrame);
+            }
             
-            u::textOverlay(20, 40, "Frame history : ", cv::Scalar(0, 255, 0), 0.7, dispFrame);
-            u::textOverlay(20, 60, "Sharpness : ", cv::Scalar(0, 255, 0), 0.7, dispFrame);
-            
-            u::textOverlay(130, 40, std::to_string(frameHistory), cv::Scalar(0, 255, 0), 0.7, dispFrame);
+            u::textOverlay(20, 100, "Archiving frames : ", u::GREEN(), 0.7, dispFrame);
+            if(archive){
+                u::textOverlay(130, 100, "yes", u::GREEN(), 0.7, dispFrame);
+            }else if (!archive){
+                u::textOverlay(130, 100, "no", u::GREEN(), 0.7, dispFrame);
+            }
+
             
             cv::imshow("F4C3", dispFrame);
             
@@ -99,6 +119,20 @@ void StreamManager::start(){
                 case 'q' :
                     closeStream();
                     break;
+                    
+                case 's' :
+                    if(save){
+                        save = false;
+                    }else if (!save){
+                        save = true;
+                    }
+                    
+                case 'a' :
+                    if (archive){
+                        archive = false;
+                    }else if (!archive){
+                        archive = true;
+                    }
             }
         } else {
             std::cout << "No image data";
@@ -146,8 +180,8 @@ void StreamManager::analyze(){
         pt2_2 = cv::Point(pt2.x + (faces[0].width * 0.2), pt2.y + (faces[0].height * 0.5));
         
         // Drawing bounding boxes
-        cv::rectangle(dispFrame, pt1, pt2, cv::Scalar(0, 255, 0), 1, 0, 0);
-        cv::rectangle(dispFrame, pt1_1, pt2_2, cv::Scalar(0,255,0), 1, 0, 0);
+        cv::rectangle(dispFrame, pt1, pt2, u::GREEN(), 1, 0, 0);
+        cv::rectangle(dispFrame, pt1_1, pt2_2, u::GREEN(), 2, 0, 0);
         
         // Checking face position in the image
         if (pt1.x < 0 || pt2.x > capWidth || pt1.y - (faces[0].height * 0.3) < 0 || pt2.y + (faces[0].height * 0.5) > capHeight){
@@ -157,19 +191,21 @@ void StreamManager::analyze(){
             imageProcessor.crop(procFrame, pt1_1.x, pt1_1.y,faces[0].width, faces[0].height + faces[0].height * 0.5);
             
             blurGrade = imageProcessor.varOfLaplacian(imageProcessor.IpFrame);
-            std::cout << blurGrade << '\n';
+            // std::cout << blurGrade << '\n';
             
             u::textOverlay(130, 60, (std::to_string(blurGrade)), cv::Scalar(0, 255, 0), 0.7, dispFrame);
 
             
             if(blurGrade > 100){
-                imageProcessor.save(imageProcessor.IpFrame, (savePath + faceFileName), (savePath + archRelSavePath + archiveFileName));
                 
-                u::solidOverlay(capWidth, capHeight, cv::Scalar(255, 255, 255), 0.2, dispFrame, dispFrame);
-                std::this_thread::sleep_for(std::chrono::milliseconds(300));
-                
-                frameHistory ++;
-                
+                if(save){
+                    imageProcessor.save(imageProcessor.IpFrame, (savePath + faceFileName), (savePath + archRelSavePath + archiveFileName), archive);
+                    if(archive){
+                        frameHistory ++;
+                    }
+                    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                }
+                // u::solidOverlay(capWidth, capHeight, cv::Scalar(255, 255, 255), 0.2, dispFrame, dispFrame);
             } else
                 return;
         } else
