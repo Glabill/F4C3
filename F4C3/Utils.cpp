@@ -34,8 +34,7 @@ void u::writeFrameHistory(int frameHistory){
     fileout << "sessionFrameHistory = " << frameHistory;
     fileout.close();
     
-    std::cout << config.filePath << frameHistory << '\n';
-
+    std::cout << config.filePath << " " << frameHistory << '\n';
 }
 
 int u::retrieveFrameHistory(){
